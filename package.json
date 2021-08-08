@@ -1,0 +1,24 @@
+{
+  "name": "twitter-clone-graphql-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^2.28.0",
+    "apollo-server": "^3.1.2",
+    "bcrypt": "^5.0.1",
+    "graphql-tools": "^8.1.0",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "merge-graphql-schemas": "^1.7.8",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "prisma": "^2.28.0"
+  }
+}

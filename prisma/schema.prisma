@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+   previewFeatures = ["referentialActions"]
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  firstName  String
+  lastName   String
+  email      String   @unique
+  password   String
+  coverPhoto String   @default(value: "https://res.cloudinary.com/tylerdurden/image/upload/v1617334073/random/Rectangle_2_mbyujf.png")
+  avatar     String?  @default(value: "https://res.cloudinary.com/tylerdurden/image/upload/v1602657481/random/pngfind.com-default-image-png-6764065_krremh.png")
+  bio        String?  @default(value: "")
+  location   String?  @default(value: "")
+  website    String?  @default(value: "")
+  dob        String?  @default(value: "")
+  tweets     Tweet[]
+  likes      Like[]
+  retweets   Retweet[]
+  comments   Comment[]
+  followers  User[] @relation("_Follow")
+  following  User[] @relation("_Follow")
+  files      File[]
+}
+
+model Tweet {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  text       String
+  likes      Like[]
+  retweets   Retweet[]
+  comments   Comment[]
+  tags       Tag[]   @relation("_TweetsTags")
+  files      File[]
+}
+
+model Like {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  tweet      Tweet     @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId    Int
+}
+
+model Retweet {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  tweet      Tweet     @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId    Int
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  text       String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  tweet      Tweet     @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId    Int
+}
+
+model Tag {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  text       String
+  tweets     Tweet[]      @relation("_TweetsTags")
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  url        String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  tweet      Tweet     @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId    Int
+}
