@@ -17,6 +17,7 @@ model User {
   updatedAt  DateTime @updatedAt
   firstName  String
   lastName   String
+  userName   String   @unique
   email      String   @unique
   password   String
   coverPhoto String   @default(value: "https://res.cloudinary.com/tylerdurden/image/upload/v1617334073/random/Rectangle_2_mbyujf.png")

@@ -4,7 +4,7 @@ exports.getUserId = (ctx) => {
   const authHeader = ctx.req.get('Authorization')
   if (authHeader) {
     const token = authHeader.replace('Bearer ', '')
-    const verifiedToken = verify(token, process.env.APP_SECRET)
+    const verifiedToken = verify(token, process.env.JWT_SECRET)
     return verifiedToken && Number(verifiedToken.userId)
   }
 

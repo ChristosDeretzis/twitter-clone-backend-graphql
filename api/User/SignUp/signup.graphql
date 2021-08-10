@@ -1,7 +1,8 @@
 type Mutation {
     signup(
-        firstname: String!
-        lastname: String!
+        firstName: String!
+        lastName: String!
+        userName: String!
         email: String!
         password: String!
     ): AuthPayload
