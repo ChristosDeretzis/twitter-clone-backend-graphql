@@ -9,5 +9,33 @@ module.exports = {
         const userId = getUserId(ctx);
         return userId === parent.id;
       },
+      isFollowing: async (parent, args, ctx) => {
+        const argId = +args.id;
+        const userId = getUserId(ctx);
+        const following = await ctx.prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        }).following({
+            where: {
+                id: argId
+            }
+        });
+        return following.length ? true : false;
+      }, followersCount: async (parent, args, ctx) => {
+        const followers = await ctx.prisma.user.findUnique({
+            where: {
+                id: parent.id
+            }
+        }).followers();
+        return followers.length;
+      }, followingCount: async (parent, args, ctx) => {
+        const following = await ctx.prisma.user.findUnique({
+            where: {
+                id: parent.id
+            }
+        }).following();
+        return following.length;
     },
+  }
   };
