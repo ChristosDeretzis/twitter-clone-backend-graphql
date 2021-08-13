@@ -27,6 +27,7 @@ module.exports = {
                 throw new Error("You don't have permissions to commit this action");
             }
 
+            // update the tweet
             const updatedTweet = await ctx.prisma.tweet.update({
                 where: { id: argId },
                 data: fieldsToUpdate,
