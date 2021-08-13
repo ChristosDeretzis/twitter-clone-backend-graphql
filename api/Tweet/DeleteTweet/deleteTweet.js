@@ -2,13 +2,12 @@ const { getUserId } = require('../../../utils/index')
 
 module.exports = {
     Mutation: {
-        updateTweet: async (parent, args, ctx) => {
+        deleteTweet: async (parent, args, ctx) => {
             // 1. make sure the user  is authenticated
             const userId = getUserId(ctx);   
             if (!userId) throw Error("You need to be authenticated");
 
-            const { id, ...fieldsToUpdate } = args;
-            const argId = +id;
+            const argId = +args.id;
             const tweet = await  ctx.prisma.tweet.findUnique({
                 where: {
                     id: argId
@@ -27,17 +26,10 @@ module.exports = {
                 throw new Error("You don't have permissions to commit this action");
             }
 
-            const updatedTweet = await ctx.prisma.tweet.update({
-                where: { id: argId },
-                data: fieldsToUpdate,
-                include: {
-                    user: true,
-                    tags: true,
-                    files: true
-                }
+            return await ctx.prisma.tweet.delete({
+                where: { id: argId }
             });
 
-            return updatedTweet;
         }
     }
 }
