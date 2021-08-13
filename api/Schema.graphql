@@ -33,7 +33,7 @@ type Tweet {
   id: ID!
   user: User
   text: String!
-  tags: [String!]! 
+  tags: [Tag!]! 
   files: [File!]!
   comments: [Comment!]!
   likes: [Like!]!
@@ -73,6 +73,15 @@ type File {
   url: String!
   tweet: Tweet
   user: User
+}
+
+type Tag {
+  id: ID!
+  text: String!,
+  tweets: [Tweet!]!
+  # prisma does this
+  createdAt: String
+  updatedAt: String
 }
 
 type Retweet {
