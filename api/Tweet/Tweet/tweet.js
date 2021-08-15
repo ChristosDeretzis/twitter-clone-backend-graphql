@@ -1,9 +1,8 @@
 module.exports = {
     Query: {
         tweet: async (parent, args, ctx) => {
-            const argId = +args.id;
             return await ctx.prisma.tweet.findUnique({
-                where: { id: argId },
+                where: { id: parseInt(args.id) },
                 include: {
                     tags: {
                         select: {

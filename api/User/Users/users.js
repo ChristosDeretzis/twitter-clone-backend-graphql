@@ -9,12 +9,12 @@ module.exports = {
 
             const following = await ctx.prisma.user.findUnique({ where: {id: userId}}).following();
 
-            const userIds = following.map((user) => user.id);
+            const userIds = following.map((user) => parseInt(user.id));
 
             return await ctx.prisma.user.findMany({
                 where: {
                     id: {
-                        in: +userIds
+                        in: userIds
                     }
                 },
                 take: 4

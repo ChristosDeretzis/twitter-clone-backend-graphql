@@ -8,10 +8,9 @@ module.exports = {
             if (!userId) throw Error("You need to be authenticated");
 
             // 2. check if tweet exists
-            const argId = +args.id;
             const tweet = await  ctx.prisma.tweet.findUnique({
                 where: {
-                    id: argId
+                    id: parseInt(args.id)
                 }
             });
 
@@ -22,7 +21,7 @@ module.exports = {
             // 3. make sure it is someone else's tweet
             const isTweetMine = await ctx.prisma.tweet.findFirst({
                 where: {
-                    AND: [{ id: argId }, { user: { id: userId } }]
+                    AND: [{ id: parseInt(args.id) }, { user: { id: userId } }]
                 }
             });
             if (isTweetMine) throw Error("You cannot retweet your own tweet");
@@ -30,7 +29,7 @@ module.exports = {
             // 4. retweet the tweet if it hasn't
             const retweet = await ctx.prisma.retweet.findMany({
                 where: {
-                    AND: [{ tweet: { id: argId } }, { user: { id: userId } }]
+                    AND: [{ tweet: { id: parseInt(args.id) } }, { user: { id: userId } }]
                 }
             });
             console.log(retweet.length);

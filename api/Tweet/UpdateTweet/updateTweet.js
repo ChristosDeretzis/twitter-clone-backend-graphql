@@ -8,10 +8,9 @@ module.exports = {
             if (!userId) throw Error("You need to be authenticated");
 
             const { id, ...fieldsToUpdate } = args;
-            const argId = +id;
             const tweet = await  ctx.prisma.tweet.findUnique({
                 where: {
-                    id: argId
+                    id: parseInt(args.id)
                 },
                 include: {
                     user: true
@@ -29,7 +28,7 @@ module.exports = {
 
             // update the tweet
             const updatedTweet = await ctx.prisma.tweet.update({
-                where: { id: argId },
+                where: { id: parseInt(args.id) },
                 data: fieldsToUpdate,
                 include: {
                     user: true,

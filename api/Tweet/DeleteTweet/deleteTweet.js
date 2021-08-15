@@ -8,10 +8,9 @@ module.exports = {
             if (!userId) throw Error("You need to be authenticated");
 
             // check if tweet exists
-            const argId = +args.id;
             const tweet = await  ctx.prisma.tweet.findUnique({
                 where: {
-                    id: argId
+                    id: parseInt(args.id)
                 },
                 include: {
                     user: true
@@ -28,7 +27,7 @@ module.exports = {
             }
 
             return await ctx.prisma.tweet.delete({
-                where: { id: argId }
+                where: { id: parseInt(args.id) }
             });
 
         }

@@ -3,7 +3,6 @@ const { getUserId } = require('../../../utils/index')
 module.exports = {
     Mutation: {
         follow: async (parent, args, ctx) => {
-            const argId = +args.id;
             // 1. make sure the user  is authenticated
             const userId = getUserId(ctx);
             
@@ -16,7 +15,7 @@ module.exports = {
                 }
             }).following({
                 where: {
-                    id: argId
+                    id: parseInt(args.id)
                 }
             });
             if (following.length) throw Error("You are following him already.");
@@ -29,7 +28,7 @@ module.exports = {
                 data: {
                     following: {
                         connect: {
-                            id: argId
+                            id: parseInt(args.id)
                         }
                     }
                 }
