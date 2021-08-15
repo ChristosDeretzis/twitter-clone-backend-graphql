@@ -17,6 +17,29 @@ module.exports = {
                         connect: {
                             id: userId
                         }
+                    },
+                    include: {
+                        tags: {
+                            select: {
+                                id: true,
+                                text: true
+                            }
+                        },
+                        files: {
+                            select: {
+                                id: true,
+                                url: true
+                            }
+                        },
+                        user: {
+                            select: {
+                                id: true,
+                                userName: true,
+                                avatar: true,
+                                firstName: true,
+                                lastName: true
+                            }
+                        }
                     }
                 }
             });

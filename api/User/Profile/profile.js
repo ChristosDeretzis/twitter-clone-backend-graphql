@@ -13,28 +13,44 @@ module.exports = {
                 where: {
                     userName: args.userName
                 },
-                tags: {
-                    select: {
-                        id: true,
-                        text: true
-                    }
-                },
-                files: {
-                    select: {
-                        id: true,
-                        url: true
-                    }
-                },
-                user: {
+                include: {
+                    followers: {
                         select: {
-                            id: true,
-                            userName: true,
-                            avatar: true,
-                            firstName: true,
-                            lastName: true
+                            id: true
                         }
-                    }    
-            })
+                    },
+                    following: {
+                        select: {
+                            id: true
+                        }
+                    },
+                    tweets: {
+                        include: {
+                            tags: {
+                                select: {
+                                    id: true,
+                                    text: true
+                                }
+                            },
+                            files: {
+                                select: {
+                                    id: true,
+                                    url: true
+                                }
+                            },
+                            user: {
+                                select: {
+                                    id: true,
+                                    userName: true,
+                                    avatar: true,
+                                    firstName: true,
+                                    lastName: true
+                                }
+                            }
+                        }
+                    }
+                },
+            });
         }
     }
 }
