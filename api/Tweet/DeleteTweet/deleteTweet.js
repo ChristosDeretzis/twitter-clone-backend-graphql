@@ -7,6 +7,7 @@ module.exports = {
             const userId = getUserId(ctx);   
             if (!userId) throw Error("You need to be authenticated");
 
+            // check if tweet exists
             const argId = +args.id;
             const tweet = await  ctx.prisma.tweet.findUnique({
                 where: {
