@@ -1,4 +1,4 @@
-const { getUserId } = require('../../../utils/index')
+const { getUserId } = require('../../../utils/index');
 
 module.exports = {
     Mutation: {

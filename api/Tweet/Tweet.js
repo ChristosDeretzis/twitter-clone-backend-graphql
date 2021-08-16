@@ -27,7 +27,7 @@ module.exports = {
             const like = ctx.prisma.like.findMany({
                 where: {
                     AND: [
-                        { tweet: { id: parent.id } },
+                        { tweet: { id: parseInt(parent.id) } },
                         { user: { id: userId } }
                     ]
                 }
