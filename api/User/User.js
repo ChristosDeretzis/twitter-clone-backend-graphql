@@ -10,7 +10,6 @@ module.exports = {
         return userId === parent.id;
       },
       isFollowing: async (parent, args, ctx) => {
-        const argId = +args.id;
         const userId = getUserId(ctx);
         const following = await ctx.prisma.user.findUnique({
             where: {
@@ -18,7 +17,7 @@ module.exports = {
             }
         }).following({
             where: {
-                id: argId
+                id: parseInt(args.id)
             }
         });
         return following.length ? true : false;
@@ -36,6 +35,12 @@ module.exports = {
             }
         }).following();
         return following.length;
-    },
+      }, tweetsCount: async (parent, args, ctx) => {
+        const tweetsCount = await ctx.prisma.tweet.count({
+            where: { user: { id: parent.id } }
+        });
+        return tweetsCount;
+    }
+
   }
   };
