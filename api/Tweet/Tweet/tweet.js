@@ -24,6 +24,19 @@ module.exports = {
                             firstName: true,
                             lastName: true
                         }
+                    }, 
+                    comments: {
+                        include: {
+                            user: {
+                                select: {
+                                    id: true,
+                                    userName: true,
+                                    avatar: true,
+                                    firstName: true,
+                                    lastName: true
+                                }
+                            }
+                        }
                     }
                 }
             });
