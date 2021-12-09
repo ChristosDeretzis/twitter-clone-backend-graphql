@@ -24,6 +24,7 @@ type User {
   followingCount: Int!
   followersCount: Int!
   tweetsCount: Int!
+  isLoggedIn: Boolean!
   # prisma does this
   createdAt: String
   updatedAt: String

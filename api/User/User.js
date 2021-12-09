@@ -40,7 +40,8 @@ module.exports = {
             where: { user: { id: parent.id } }
         });
         return tweetsCount;
-    }
+      },
+
 
   }
   };

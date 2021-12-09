@@ -9,13 +9,16 @@ module.exports = {
       // check if the email and username is unique
       const existingUser = await ctx.prisma.user.findFirst({
           where: {
-            email: args.email
+            OR: [
+              {email: args.email},
+              {userName: args.userName}
+            ]
           }
       });
       
 
       if (existingUser)
-        throw Error("The email/handle already exists, try different ones");
+        throw Error("The email/username already exists, try different ones");
 
       // hash the password, save the user in db
       const hashedPw = await bcrypt.hash(args.password, 10);
