@@ -30,8 +30,8 @@ model User {
   likes      Like[]
   retweets   Retweet[]
   comments   Comment[]
-  followers  User[] @relation("_Follow")
-  following  User[] @relation("_Follow")
+  followers  User[] @relation("UserFollows", references: [id])
+  following  User[] @relation("UserFollows", references: [id])
   files      File[]
 }
 
