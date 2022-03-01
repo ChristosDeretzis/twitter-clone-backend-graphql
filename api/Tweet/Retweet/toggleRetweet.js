@@ -46,7 +46,7 @@ module.exports = {
                             connect: { id: userId }
                         },
                         tweet: {
-                            connect: { id: argId }
+                            connect: { id: parseInt(args.id) }
                         }
                     }
                 });
