@@ -13,13 +13,14 @@ module.exports = {
         const userId = getUserId(ctx);
         const following = await ctx.prisma.user.findUnique({
             where: {
-                id: userId
+                id: parseInt(userId)
             }
         }).following({
-            where: {
-                id: parseInt(args.id)
-            }
+          where: {
+            id: parseInt(parent.id)
+          }
         });
+        
         return following.length ? true : false;
       }, followersCount: async (parent, args, ctx) => {
         const followers = await ctx.prisma.user.findUnique({
